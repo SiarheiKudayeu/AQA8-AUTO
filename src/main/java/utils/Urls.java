@@ -7,4 +7,7 @@ public class Urls {
     public static final String automationPractice = "http://www.automationpractice.pl/index.php";
     public static final String uhomki = "https://uhomki.prom.ua/ua/";
     public static final String rozetka = "https://rozetka.com.ua/";
+    public static final String ktoKuda = "http://ktokuda.net/";
+    public static final String danIT = "https://dan-it.com.ua/uk/";
+    public static final String dragNDropOne = "https://www.signesduquotidien.org/";
 }
