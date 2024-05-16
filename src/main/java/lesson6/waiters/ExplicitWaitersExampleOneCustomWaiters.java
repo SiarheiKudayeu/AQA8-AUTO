@@ -8,27 +8,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.Urls;
+import waiters.CustomWaiters;
 
 import java.time.Duration;
 
-public class ExplicitWaitersExampleOne {
+public class ExplicitWaitersExampleOneCustomWaiters {
     public static void main(String[] args) {
-        //явные ожидания
+        //кастомные ожидания
         WebDriver driver = DriverInit.setUpDriver();
         driver.get(Urls.w3schoolAlert);
-        //accept-choices
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        CustomWaiters waiters = new CustomWaiters(driver);
 
         //visibilityOfElementLocated
-        WebElement acceptCookies = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("accept-choices")));
-        acceptCookies.click();
+        waiters.waitForVisibility(By.id("accept-choices")).click();
 
         //frameToBeAvailableAndSwitchToIt
-        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("iframeResult")));
+        waiters.switchToFrame(By.id("iframeResult"));
         driver.findElement(By.xpath("//button[@onclick='myFunction()']")).click();
 
         //alertIsPresent
-        Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert = waiters.switchToAlert();
         System.out.println(alert.getText());
         alert.accept();
         driver.quit();
