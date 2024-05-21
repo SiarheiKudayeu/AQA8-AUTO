@@ -34,6 +34,10 @@ public class CustomWaiters {
     public WebElement waitForVisibility(By locator){
         return fluentWait().until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
+
+    public WebElement waitForVisibility(WebElement element){
+        return fluentWait().until(ExpectedConditions.visibilityOf(element));
+    }
     //frameToBeAvailableAndSwitchToIt
     public void switchToFrame(By locator){
         waitForFunction(ExpectedConditions.frameToBeAvailableAndSwitchToIt(locator));

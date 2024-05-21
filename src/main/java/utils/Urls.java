@@ -17,6 +17,7 @@ public class Urls {
     public static final String clickActionExPage = "https://demo.guru99.com/test/simple_context_menu.html";
     public static final String dataPickerPage = "https://demoqa.com/date-picker";
     public static final String w3schoolAlert = "https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_alert";
+    public static final String mixIDage ="file:///C:/Users/anduser/Desktop/additional/Enabled/MixId.html";
 
 
 
