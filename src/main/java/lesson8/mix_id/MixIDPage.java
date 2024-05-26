@@ -1,5 +1,6 @@
 package lesson8.mix_id;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,9 +14,10 @@ import waiters.CustomWaiters;
 
 public class MixIDPage {
 
-    private static final class Labels{
+    private static final class Labels {
         private static final String doubleClickAlertMessage = "Double click!";
     }
+
     private WebDriver driver;
     private CustomWaiters waiters;
 
@@ -29,8 +31,8 @@ public class MixIDPage {
         STAR, ROCKET, PIZZA, BALOON, APPLE
     }
 
-    public enum Options{
-        ONE, TWO,THREE
+    public enum Options {
+        ONE, TWO, THREE
     }
 
 
@@ -54,15 +56,16 @@ public class MixIDPage {
     private static WebElement counterButton;
     @FindBy(id = "clickCounter")
     private static WebElement clickCounter;
-    @FindBy(id="randomAnimal")
+    @FindBy(id = "randomAnimal")
     private static WebElement animalResultElement;
-    @FindBy(id="generateAnimalButton")
+    @FindBy(id = "generateAnimalButton")
     private static WebElement generateAnimalButton;
 
-    public MixIDPage dragElementToArea2(ElementsForDragNDrop element){
+    @Step("dragElementToArea2")
+    public MixIDPage dragElementToArea2(ElementsForDragNDrop element) {
         Actions actions = new Actions(driver);
         WebElement source = null;
-        switch (element){
+        switch (element) {
             case STAR -> source = star;
             case APPLE -> source = apple;
             case BALOON -> source = baloon;
@@ -72,7 +75,9 @@ public class MixIDPage {
         actions.dragAndDrop(source, dragArea2).perform();
         return this;
     }
-    public MixIDPage selectOption(Options option){
+
+    @Step("selectOption")
+    public MixIDPage selectOption(Options option) {
         Select selectElement = new Select(select);
         String text = null;
         switch (option) {
@@ -84,18 +89,22 @@ public class MixIDPage {
         return this;
     }
 
-    public MixIDPage clickUntilAnimalWillBeFound(String animal){
+    @Step("clickUntilAnimalWillBeFound")
+    public MixIDPage clickUntilAnimalWillBeFound(String animal) {
         do {
             generateAnimalButton.click();
-        }while (!animalResultElement.getText().contains(animal));
+        } while (!animalResultElement.getText().contains(animal));
         return this;
     }
-    public MixIDPage assertAnimalResultField(String animalName){
+
+    @Step("assertAnimalResultField")
+    public MixIDPage assertAnimalResultField(String animalName) {
         Assert.assertEquals(animalResultElement.getText(), (animalName + ": " + "\uD83D\uDC3B"));
         return this;
     }
 
-    public MixIDPage assertSelectedOption(Options option){
+    @Step("assertSelectedOption")
+    public MixIDPage assertSelectedOption(Options option) {
         Select selectElement = new Select(select);
         String text = null;
         switch (option) {
@@ -107,29 +116,35 @@ public class MixIDPage {
         return this;
     }
 
+    @Step("openMainPage")
     public MixIDPage openMainPage() {
         driver.get(Urls.mixIDage);
         waiters.waitForVisibility(star);
         return this;
     }
-    public MixIDPage clickOnCounterButtonNTimes(int amount){
-        for (int i = 0; i < amount; i++){
+
+    @Step("clickOnCounterButtonNTimes")
+    public MixIDPage clickOnCounterButtonNTimes(int amount) {
+        for (int i = 0; i < amount; i++) {
             counterButton.click();
         }
         return this;
     }
 
-    public void assertValueAfterClickCounterButton(int amount){
+    @Step("assertValueAfterClickCounterButton")
+    public void assertValueAfterClickCounterButton(int amount) {
         Assert.assertEquals(Integer.parseInt(clickCounter.getText()), amount);
     }
 
-    public MixIDPage clickDoubleClickButton(){
+    @Step("clickDoubleClickButton")
+    public MixIDPage clickDoubleClickButton() {
         Actions actions = new Actions(driver);
         actions.doubleClick(doubleClickButton).perform();
         return this;
     }
 
-    public MixIDPage assertDoubleClickAlert(){
+    @Step("assertDoubleClickAlert")
+    public MixIDPage assertDoubleClickAlert() {
         Alert alert = waiters.switchToAlert();
         String alertText = alert.getText();
         alert.accept();
@@ -137,7 +152,8 @@ public class MixIDPage {
         return this;
     }
 
-    public MixIDPage assertDragNDropElements(){
+    @Step("assertDragNDropElements")
+    public MixIDPage assertDragNDropElements() {
         Assert.assertTrue(dragArea2.getText().contains("\uD83D\uDE80"));
         Assert.assertTrue(dragArea2.getText().contains("\uD83C\uDF88"));
         Assert.assertTrue(dragArea2.getText().contains("\uD83C\uDF1F"));
